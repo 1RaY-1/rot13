@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
-# ROT13  Русская Версия (cyrillic)
+# ROT13 Кириллическая Версия
 
 import sys
 
 # Отступ не убирать
 chars_normal = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ "
 chars_rot13 = "лмнопрстуфхцчшщъыьэюяабвгдеёжзийкЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙК "
+# всякие симболы которые не шивруются
+other_chars = "'\"!@#$%^&*()_+-/.><?|\\}{`~,[]=:;"
 
 action  = ""
 index = []
@@ -17,7 +19,6 @@ _help = f'''При запуске, пишите аргумент "-en" чтоб�
 Пример: python3 {sys.argv[0]} -en "Текст тут"
 '''
 
-# Encode
 def encode_single(char:str):
     try:
         index = chars_normal.index(char)
@@ -27,10 +28,13 @@ def encode_single(char:str):
 #       1234567890
 #       3456789012
         if char.isnumeric() == True:
-            print(int(char) + 2, end="")
+            print(int(char) + 2, end="") # " end="" " нужен для того чтобы писать весь текст на одной строке
+#        Если написать какой-то симбол типо ! или ?
+        elif char in other_chars:
+            print(char, end="")
         else:
             sys.exit("Эй, что вы пишите!")
-# Decode
+
 def decode_single(char:str):
     try:
         index = chars_rot13.index(char)
@@ -39,6 +43,8 @@ def decode_single(char:str):
 #        А сдесь минусуем 2
         if char.isnumeric() == True:
             print(int(char) - 2, end="")
+        elif char in other_chars:
+            print(char, end="")
         else:
             sys.exit("Эй, что вы пишите!")
 
