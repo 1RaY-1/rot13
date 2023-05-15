@@ -21,6 +21,3 @@
 Результат: Текст тут
 
 ```
-
-### Ещё Пример/Скриншот
-![rot13_github](https://user-images.githubusercontent.com/78962948/225103909-ed24b719-a7cb-429d-bc63-39134f21754c.png)
