@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
 
-# ROT13 Кириллическая Версия
+# ROT13 Кириллическая Версия. С поддержкой латинского (английского) алфавита
+# Автор: github.com/1RaY-1
+# Дата последнего изменения: Четверг, 11 Апреля, 2024
+
 import sys
-chars_normal = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ "
-chars_rot13 = "лмнопрстуфхцчшщъыьэюяабвгдеёжзийкЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙК "
+
+cir_chars_normal = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ "
+cir_chars_rot13 = "мнопрстуфхцчшщъыьэюяабвгдеёжзийклМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙКЛ "
+
+# Можно еще работать с Латиницей (Англ. алфавит)
+latin_chars_normal = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+latin_chars_rot13 = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM "
+
 # всякие симболы которые не шивруются
 other_chars = "'\"!@#$%^&*()_+-/.><?|\\}{`~,[]=:;0123456789"
 action  = ""
@@ -19,24 +28,36 @@ ROT13 Русскоязычная Версия
 
 def encode_single(char:str):
     try:
-        index = chars_normal.index(char)
-        print(chars_rot13[index], end="")
+        index = cir_chars_normal.index(char)
+        print(cir_chars_rot13[index], end="")
 
     except ValueError:
-
-        if char in other_chars:
+#       see if characters aren't cyrrilic
+        if char in latin_chars_normal:
+            index = latin_chars_normal.index(char)
+            print(latin_chars_rot13[index], end="")
+#       detect some symbols
+        elif char in other_chars:
             print(char, end="")
+#       detect new line
+        elif "\n" in char:
+            print("\n", end="")
         else:
             sys.exit("Эй, что вы пишите!")
 
 def decode_single(char:str):
     try:
-        index = chars_rot13.index(char)
-        print(chars_normal[index], end="")
+        index = cir_chars_rot13.index(char)
+        print(cir_chars_normal[index], end="")
 
     except ValueError:
-        if char in other_chars:
+        if char in latin_chars_rot13:
+            index = latin_chars_rot13.index(char)
+            print(latin_chars_normal[index], end="")
+        elif char in other_chars:
             print(char, end="")
+        elif "\n" in char:
+            print("\n", end="")
         else:
             sys.exit("Эй, что вы пишите!")
 def main():
@@ -52,7 +73,6 @@ if __name__ == '__main__':
         sys.exit(_help)
 
     else:
-
         if sys.argv[1] == "-en" or sys.argv[1] == "--encode": action = "encode"
 
         elif sys.argv[1] == "-de" or sys.argv[1] == "--decode": action = "decode"
@@ -60,3 +80,4 @@ if __name__ == '__main__':
         else: sys.exit("Что-то не так!\n" + _help)
 
         main()
+gphoto2://Apple_Inc._iPhone_457257670acaf67b92c8402a119f4463f71f7d57/DCIM/202402__/IMG_1191.JPG
