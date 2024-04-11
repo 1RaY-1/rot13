@@ -80,4 +80,3 @@ if __name__ == '__main__':
         else: sys.exit("Что-то не так!\n" + _help)
 
         main()
-gphoto2://Apple_Inc._iPhone_457257670acaf67b92c8402a119f4463f71f7d57/DCIM/202402__/IMG_1191.JPG
